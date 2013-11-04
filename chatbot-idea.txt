@@ -1,0 +1,17 @@
+=== Wikipedia ===
+chat bot is a computer program designed to simulate an intelligent conversation with one or more human users via auditory or textual methods, primarily for engaging in small talk. The primary aim of such simulation has been to fool the user into thinking that the program's output has been produced by a human (the Turing test). Programs playing this role are sometimes referred to as Artificial Conversational Entities, talk bots or chatterboxes. In addition, however, chatterbots are often integrated into dialog systems for various practical purposes such as offline help, personalised service, or information acquisition. Some chatterbots use sophisticated natural language processing systems, but many simply scan for keywords within the input and pull a reply with the most matching keywords, or the most similar wording pattern, from a textual database.
+
+=== Wikipedia ===
+A.L.I.C.E. (Artificial Linguistic Internet Computer Entity), also referred to as Alicebot, or simply Alice, is a natural language processing chatterbot¡Xa program that engages in a conversation with a human by applying some heuristical pattern matching rules to the human's input, and in its online form it also relies on a hidden third person. It was inspired by Joseph Weizenbaum's classical ELIZA program. It is one of the strongest programs of its type and has won the Loebner Prize, awarded to accomplished humanoid, talking robots, three times (in 2000,[1] 2001[1] and 2004). However, the program is unable to pass the Turing test, as even the casual user will often expose its mechanistic aspects in short conversations.
+
+http://alice.pandorabots.com/
+
+=== Wikipedia ===
+Jabberwacky is a chatterbot created by British programmer Rollo Carpenter. Its stated aim is to "simulate natural human chat in an interesting, entertaining and humorous manner". It is an early attempt at creating an artificial intelligence through human interaction.
+
+http://www.jabberwacky.com/
+
+MathBot is a chat bot in development. We are training MathBot to answer simple number problems like addition, subtraction, multiplication, division, etc. During this development phase, MathBot will only answer math-related questions.
+
+http://nlp-addiction.com/chatbot/mathbot/
+http://nlp-addiction.com/chatbot/
