@@ -110,22 +110,27 @@ class Chat(object):
                     if response_type == "addition":
                         strEval = match.group(2) + '+' + match.group(3)
                         resp = eval(strEval)
+			print ("The sum of " + match.group(2) + " and " + match.group(3) + " is") 
+			#resp = "The result is" + str(eval(strEval))
                     
                     if response_type == "subtraction":
                         strEval = match.group(2) + '-' + match.group(3)
+			print ("The subtraction of " + match.group(3) + " from " + match.group(2) + " is")
                         resp = eval(strEval)
                     
                     if response_type == "multiplication":
                         strEval = match.group(2) + "*" + match.group(3)
+			print("The multiplication of " + match.group(2) + " and " + match.group(3) + " is")
                         resp = eval(strEval)
                     
                     if response_type == "division":
                         strEval = match.group(2) + "/" + match.group(3)
+			print ("The division of " + match.group(2) + " by " + match.group(3) + " is")
                         resp = eval(strEval)
                     
                     if response_type == "exponentiation":
-                        print 
                         strEval = match.group(2) + "**" + match.group(3)
+			print (match.group(2) + " to the power of "+  match.group(3) + " is")
                         resp = eval(strEval)
                     
                     return resp
