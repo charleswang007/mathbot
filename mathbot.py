@@ -13,7 +13,8 @@ http://alice.pandorabots.com/
 http://www.jabberwacky.com/
 http://nlp-addiction.com/chatbot/mathbot/
 '''
-
+import chatbotUtils
+from chatbotUtils import *
 import nltk
 
 reflections = {
@@ -27,7 +28,7 @@ dictionary = {'equation': 'An equation says that two things are equal.',
               'variable': 'A Variable is a symbol for a number we don\'t know yet. It is usually a letter like x or y.',
               'constant': 'A number on its own is called a Constant.',
               'coefficient': 'A Coefficient is a number used to multiply a variable (4x means 4 times x, so 4 is a coefficient)',
-              'operator': 'An Operator is a symbol (such as +, กั, etc) that represents an operation (ie you want to do something with the values).',
+              'operator': 'An Operator is a symbol (such as +, etc) that represents an operation (ie you want to do something with the values).',
               'term': 'A Term is either a single number or a variable, or numbers and variables multiplied together.',
               'expression': 'An Expression is a group of terms (the terms are separated by + or - signs)',
               'exponent': 'The exponent (such as the 2 in x^2) says how many times to use the value in a multiplication.',
@@ -36,7 +37,7 @@ dictionary = {'equation': 'An equation says that two things are equal.',
 definition_pairs = []
 for term in dictionary.keys():
     def_tuple = tuple([dictionary[term]])
-    definition_pairs.append((r"%s|(.*)what is %s" % (term,term), def_tuple))
+    definition_pairs.append((r"%s|(.*)what is %s" % (term,term), def_tuple, "definition"))
 definition_pairs = tuple(definition_pairs)
 
 # introduction
@@ -44,8 +45,9 @@ intro_pairs = (
     (
         r"math|(.*)what is math",
         (
-            "A mathematician is a blind man in a dark room looking for a black cat which isn't there. (Charles Darwin)",
-        ) 
+            "A mathematician is a blind man in a dark room looking for a black cat which isn't there. (Charles Darwin)"
+        ),
+        "intro"
     ),
     (
         r"(.*)math",
@@ -53,7 +55,8 @@ intro_pairs = (
             "Did you just say Math? It is my favorite subject!",
             "Math makes me the sexist chatbot in the world!",
             "Please challenge me with any math questions. I'm hungry!"
-        ) 
+        ) ,
+        "intro"
     ),
 )
 
@@ -62,62 +65,72 @@ arithmetic_pairs = (
     (
         r"(.*)\s*(\d+)\s*plus\s*(\d+)", # addition(plus)
         (
-            "[addition] the two numbers are: %2 and%3, result is ...",
-        ) 
+            "[addition] the two numbers are: %2 and%3, result is ..."
+        ) ,
+        "addition"
     ),
     (
         r"(.*)\s*(\d+)\s*\+\s*(\d+)", # addition(+)
         (
-            "[addition] the two numbers are: %2 and%3, result is ...",
-        ) 
+            "[addition] the two numbers are: %2 and%3, result is ..."
+        ) ,
+        "addition"
     ),
     (
         r"(.*)\s*(\d+)\s*minus\s*(\d+)", # subtraction(minus)
         (
-            "[subtraction] the two numbers are: %2 and%3, result is ...",
-        ) 
+            "[subtraction] the two numbers are: %2 and%3, result is ..."
+        ) ,
+        "subtraction"
     ),
     (
         r"(.*)\s*(\d+)\s*\-\s*(\d+)", # subtraction(-)
         (
-            "[subtraction] the two numbers are: %2 and%3, result is ...",
-        ) 
+            "[subtraction] the two numbers are: %2 and%3, result is ..."
+        ) ,
+        "subtraction"
     ),
     (
         r"(.*)\s*(\d+)\s*times\s*(\d+)", # multiplication(times)
         (
-            "[multiplication] the two numbers are: %2 and%3, result is ...",
-        ) 
+            "[multiplication] the two numbers are: %2 and%3, result is ..."
+        ) ,
+        "multiplication"
     ),
     (
         r"(.*)\s*(\d+)\s*\*\s*(\d+)", # multiplication(*)
         (
-            "[multiplication] the two numbers are: %2 and%3, result is ...",
-        ) 
+            "[multiplication] the two numbers are: %2 and%3, result is ..."
+        ) ,
+        "multiplication"
     ),
     (
         r"(.*)\s*(\d+)\s*divided by\s*(\d+)", # division(divided by)
         (
-            "[division] the two numbers are: %2 and%3, result is ...",
-        ) 
+            "[division] the two numbers are: %2 and%3, result is ..."
+        ) ,
+        "division"
     ),
     (
         r"(.*)\s*(\d+)\s*\/\s*(\d+)", # division(/)
         (
-            "[division] the two numbers are: %2 and%3, result is ...",
-        ) 
+            "[division] the two numbers are: %2 and%3, result is ..."
+        ) ,
+        "division"
     ),
     (
         r"(.*)\s*(\d+)\s*\*\*\s*(\d+)", # Exponentiation(**)
         (
-            "[Exponentiation] the base is%2 and the exponent is%3, result is ...",
-        ) 
+            "[Exponentiation] the base is%2 and the exponent is%3, result is ..."
+        ) ,
+        "expoentiation"
     ),
     (
         r"(.*)\s*(\d+)\s*to the power of\s*(\d+)", # Exponentiation(to the power of)
         (
-            "[Exponentiation] the base is%2 and the exponent is%3, result is ...",
-        ) 
+            "[Exponentiation] the base is%2 and the exponent is%3, result is ..."
+        ) ,
+        "exponentiation"
     ),
 )
 
@@ -128,7 +141,8 @@ extra_pairs = (
         (
             "(Looking sad) I want to talk about math...",
             "Please don't count on me answer this kind of question"
-        )
+        ),
+        "extra"
     ),
 )
 
@@ -137,7 +151,7 @@ pairs = pairs + arithmetic_pairs
 pairs = pairs + extra_pairs
 
 
-math_chatbot = nltk.chat.Chat(pairs, reflections)
+math_chatbot = chatbotUtils.Chat(pairs, reflections)
 
 def math_chat():
     print "I'm a nerdy mathbot that only answers questions related to Math ..."
