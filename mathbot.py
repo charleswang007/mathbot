@@ -123,7 +123,7 @@ arithmetic_pairs = (
         (
             "[Exponentiation] the base is%2 and the exponent is%3, result is ..."
         ) ,
-        "expoentiation"
+        "exponentiation"
     ),
     (
         r"(.*)\s*(\d+)\s*to the power of\s*(\d+)", # Exponentiation(to the power of)
