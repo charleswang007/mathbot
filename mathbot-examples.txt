@@ -1,0 +1,47 @@
+1. MathBot
+http://nlp-addiction.com/chatbot/mathbot/
+
+Human: do you know what is 2 plus 4
+MathBot: Hold on a sec, I'm thinking... 2 increased by 4 equals 6
+
+Human: can you tell me 2 plus 4
+MathBot: Hold on a sec, I'm thinking... 2 + 4 = 6
+
+Human: 2 plus 4
+MathBot: Ok... 2 added to 4 is, and always will be 6
+
+Human: what is 2 plus 4
+MathBot: I know the answer to that. 2 increased by 4 is definately 6
+
+2. A.L.I.C.E.
+http://alice.pandorabots.com/
+
+judge: 2+4 
+ALICE: As Bertrand Russel said, it must have taken ages for people to realize that a brace of pheasants and a couple of days are both instances of the number "two.". 
+
+judge: what is 2+4 
+ALICE: Four. 
+
+judge: 2 plus 4 
+ALICE: 12. 
+
+judge: do you know what is 2 plus 4 
+ALICE: Two. 
+
+judge: can you tell me what's 2 plus 4 
+ALICE: Four.
+
+3. Jabberwacky
+http://www.jabberwacky.com/
+
+ME: 2+4
+Jabberwacky: You see
+
+ME: What is 2 plus 4
+Jabberwacky: I don't care about Maths if you are not real
+
+ME: 2 plus 4
+Jabberwacky: 5 plus 4 is 9
+
+ME: Can you please tell me what's 2 plus 4?
+Jabberwacky: You really don't
