@@ -32,6 +32,20 @@ reflections = {
   "you"        : "me",
   "me"         : "you"
 }
+
+count_dict = {
+"intro" : 0,
+"extra" : 0,
+"definition" : 0,
+"addition" : 0 }
+
+question_dict = {
+"intro" : [],
+"extra" : [],
+"definition" : [],
+"addition" : []
+}
+
 class Chat(object):
     def __init__(self, pairs, reflections={}):
         """
@@ -52,7 +66,7 @@ class Chat(object):
         self._pairs = [(re.compile(x, re.IGNORECASE),y,z) for (x,y,z) in pairs]
         self._reflections = reflections
         self._regex = self._compile_reflections()
-
+	self.question_list = []
 
     def _compile_reflections(self):
         sorted_refl = sorted(self._reflections.keys(), key=len,
@@ -92,7 +106,6 @@ class Chat(object):
             :param str: The string to be mapped
             :rtype: str
             """
-
             # check each pattern
             # add response_type
             for (pattern, response, response_type) in self._pairs:
@@ -106,13 +119,27 @@ class Chat(object):
                         # fix munged punctuation at the end
                         if resp[-2:] == '?.': resp = resp[:-2] + '.'
                         if resp[-2:] == '??': resp = resp[:-2] + '?'
-                    
+			
+			
+                    	count_dict[response_type] += 1
+			question_dict[response_type].append(match.group(0))
+			for key in question_dict.keys():
+				print (key, question_dict[key])
+			if count_dict[response_type] > 3:
+				print ("You have been asking for "+ response_type + " for over three times! Can you ask me something else such as...")
+				for type in count_dict.keys():
+					if type != response_type:
+						print(type ,) 
+ 
                     if response_type == "addition":
                         strEval = match.group(2) + '+' + match.group(3)
                         resp = eval(strEval)
 			print ("The sum of " + match.group(2) + " and " + match.group(3) + " is") 
 			#resp = "The result is" + str(eval(strEval))
-                    
+			count_dict[response_type] += 1
+                        question_dict[response_type].append(match.group(0))
+
+
                     if response_type == "subtraction":
                         strEval = match.group(2) + '-' + match.group(3)
 			print ("The subtraction of " + match.group(3) + " from " + match.group(2) + " is")
@@ -145,4 +172,9 @@ class Chat(object):
                     print(input)
                 if input:
                     while input[-1] in "!.": input = input[:-1]
+		    total_count = len(self.question_list)
+		    
+		    if total_count > 5:
+			print("Our session has ended today.")
+			input = quit
                     print(self.respond(input))
