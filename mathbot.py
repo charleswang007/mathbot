@@ -37,7 +37,7 @@ dictionary = {'equation': 'An equation says that two things are equal.',
 definition_pairs = []
 for term in dictionary.keys():
     def_tuple = tuple([dictionary[term]])
-    definition_pairs.append((r"%s|(.*)what is %s" % (term,term), def_tuple, "definition"))
+    definition_pairs.append((r"%s|(.*)what is %s" % (term,term), def_tuple, "definition", ""))
 definition_pairs = tuple(definition_pairs)
 
 # introduction
@@ -45,9 +45,10 @@ intro_pairs = (
     (
         r"math|(.*)what is math",
         (
-            "A mathematician is a blind man in a dark room looking for a black cat which isn't there. (Charles Darwin)"
+            "A mathematician is a blind man in a dark room looking for a black cat which isn't there. (Charles Darwin)",
         ),
-        "intro"
+        "intro",
+        ""
     ),
     (
         r"(.*)math",
@@ -56,81 +57,176 @@ intro_pairs = (
             "Math makes me the sexist chatbot in the world!",
             "Please challenge me with any math questions. I'm hungry!"
         ) ,
-        "intro"
+        "intro",
+        ""
     ),
 )
 
-# basic arithmetic (not sure how to do operations on the numbers, since I don't know how to parse %0)
+# basic arithmetic 
 arithmetic_pairs = (
     (
-        r"(.*)\s*(\d+)\s*plus\s*(\d+)", # addition(plus)
+        r"(\d+\.*\d*)\s*plus\s*(\d+\.*\d*)", # addition(plus)
         (
-            "[addition] the two numbers are: %2 and%3, result is ..."
+            "[addition] the two numbers are: %1 and%2, result is ...",
         ) ,
+        "arithmetic",
         "addition"
     ),
     (
-        r"(.*)\s*(\d+)\s*\+\s*(\d+)", # addition(+)
+        r"(\d+\.*\d*)\s*\+\s*(\d+\.*\d*)", # addition(+)
         (
-            "[addition] the two numbers are: %2 and%3, result is ..."
+            "[addition] the two numbers are: %1 and%2, result is ...",
         ) ,
+        "arithmetic",
         "addition"
     ),
     (
-        r"(.*)\s*(\d+)\s*minus\s*(\d+)", # subtraction(minus)
+        r"(\d+\.*\d*)\s*minus\s*(\d+\.*\d*)", # subtraction(minus)
         (
-            "[subtraction] the two numbers are: %2 and%3, result is ..."
+            "[subtraction] the two numbers are: %1 and%2, result is ...",
         ) ,
+        "arithmetic",
         "subtraction"
     ),
     (
-        r"(.*)\s*(\d+)\s*\-\s*(\d+)", # subtraction(-)
+        r"(\d+\.*\d*)\s*-\s*(\d+\.*\d*)", # subtraction(-)
         (
-            "[subtraction] the two numbers are: %2 and%3, result is ..."
+            "[subtraction] the two numbers are: %1 and%2, result is ...",
         ) ,
+        "arithmetic",
         "subtraction"
     ),
     (
-        r"(.*)\s*(\d+)\s*times\s*(\d+)", # multiplication(times)
+        r"(\d+\.*\d*)\s*times\s*(\d+\.*\d*)", # multiplication(times)
         (
-            "[multiplication] the two numbers are: %2 and%3, result is ..."
+            "[multiplication] the two numbers are: %1 and%2, result is ...",
         ) ,
+        "arithmetic",
         "multiplication"
     ),
     (
-        r"(.*)\s*(\d+)\s*\*\s*(\d+)", # multiplication(*)
+        r"(\d+\.*\d*)\s*\*\s*(\d+\.*\d*)", # multiplication(*)
         (
-            "[multiplication] the two numbers are: %2 and%3, result is ..."
+            "[multiplication] the two numbers are: %1 and%2, result is ...",
         ) ,
+        "arithmetic",
         "multiplication"
     ),
     (
-        r"(.*)\s*(\d+)\s*divided by\s*(\d+)", # division(divided by)
+        r"(\d+\.*\d*)\s*divided by\s*(\d+\.*\d*)", # division(divided by)
         (
-            "[division] the two numbers are: %2 and%3, result is ..."
+            "[division] the two numbers are: %1 and%2, result is ...",
         ) ,
+        "arithmetic",
         "division"
     ),
     (
-        r"(.*)\s*(\d+)\s*\/\s*(\d+)", # division(/)
+        r"(\d+\.*\d*)\s*/\s*(\d+\.*\d*)", # division(/)
         (
-            "[division] the two numbers are: %2 and%3, result is ..."
+            "[division] the two numbers are: %1 and%2, result is ...",
         ) ,
+        "arithmetic",
         "division"
     ),
     (
-        r"(.*)\s*(\d+)\s*\*\*\s*(\d+)", # Exponentiation(**)
+        r"(\d+\.*\d*)\s*\*\*\s*(\d+\.*\d*)", # Exponentiation(**)
         (
-            "[Exponentiation] the base is%2 and the exponent is%3, result is ..."
+            "[Exponentiation] the base is%1 and the exponent is%2, result is ...",
         ) ,
+        "arithmetic",
         "exponentiation"
     ),
     (
-        r"(.*)\s*(\d+)\s*to the power of\s*(\d+)", # Exponentiation(to the power of)
+        r"(\d+\.*\d*)\s*to the power of\s*(\d+\.*\d*)", # Exponentiation(to the power of)
         (
-            "[Exponentiation] the base is%2 and the exponent is%3, result is ..."
+            "[Exponentiation] the base is%1 and the exponent is%2, result is ...",
         ) ,
+        "arithmetic",
         "exponentiation"
+    ),
+)
+
+# basic arithmetic (starting with verbal)
+arithmetic_pairs_1 = (
+    (
+        r"(.*)\s(\d+\.*\d*)\s*plus\s*(\d+\.*\d*)", # addition(plus)
+        (
+            "[addition] the two numbers are: %2 and%3, result is ...",
+        ) ,
+        "arithmetic",
+        "addition-1"
+    ),
+    (
+        r"(.*)\s(\d+\.*\d*)\s*\+\s*(\d+\.*\d*)", # addition(+)
+        (
+            "[addition] the two numbers are: %2 and%3, result is ...",
+        ) ,
+        "arithmetic",
+        "addition-1"
+    ),
+    (
+        r"(.*)\s(\d+\.*\d*)\s*minus\s*(\d+\.*\d*)", # subtraction(minus)
+        (
+            "[subtraction] the two numbers are: %2 and%3, result is ...",
+        ) ,
+        "arithmetic",
+        "subtraction-1"
+    ),
+    (
+        r"(.*)\s(\d+\.*\d*)\s*-\s*(\d+\.*\d*)", # subtraction(-)
+        (
+            "[subtraction] the two numbers are: %2 and%3, result is ...",
+        ) ,
+        "arithmetic",
+        "subtraction-1"
+    ),
+    (
+        r"(.*)\s(\d+\.*\d*)\s*times\s*(\d+\.*\d*)", # multiplication(times)
+        (
+            "[multiplication] the two numbers are: %2 and%3, result is ...",
+        ) ,
+        "arithmetic",
+        "multiplication-1"
+    ),
+    (
+        r"(.*)\s(\d+\.*\d*)\s*\*\s*(\d+\.*\d*)", # multiplication(*)
+        (
+            "[multiplication] the two numbers are: %2 and%3, result is ...",
+        ) ,
+        "arithmetic",
+        "multiplication-1"
+    ),
+    (
+        r"(.*)\s(\d+\.*\d*)\s*divided by\s*(\d+\.*\d*)", # division(divided by)
+        (
+            "[division] the two numbers are: %2 and%3, result is ...",
+        ) ,
+        "arithmetic",
+        "division-1"
+    ),
+    (
+        r"(.*)\s(\d+\.*\d*)\s*/\s*(\d+\.*\d*)", # division(/)
+        (
+            "[division] the two numbers are: %2 and%3, result is ...",
+        ) ,
+        "arithmetic",
+        "division-1"
+    ),
+    (
+        r"(.*)\s(\d+\.*\d*)\s*\*\*\s*(\d+\.*\d*)", # Exponentiation(**)
+        (
+            "[Exponentiation] the base is%2 and the exponent is%3, result is ...",
+        ) ,
+        "arithmetic",
+        "exponentiation-1"
+    ),
+    (
+        r"(.*)\s(\d+\.*\d*)\s*to the power of\s*(\d+\.*\d*)", # Exponentiation(to the power of)
+        (
+            "[Exponentiation] the base is%2 and the exponent is%3, result is ...",
+        ) ,
+        "arithmetic",
+        "exponentiation-1"
     ),
 )
 
@@ -142,23 +238,24 @@ extra_pairs = (
             "(Looking sad) I want to talk about math...",
             "Please don't count on me answer this kind of question"
         ),
-        "extra"
+        "extra",
+        ""
     ),
 )
 
 pairs = intro_pairs + definition_pairs
 pairs = pairs + arithmetic_pairs
+pairs = pairs + arithmetic_pairs_1
 pairs = pairs + extra_pairs
-
+#print pairs
 
 math_chatbot = chatbotUtils.Chat(pairs, reflections)
 
 def math_chat():
-    print "I'm a nerdy mathbot that only answers questions related to Math ..."
+    print "I'm a nerdy mathbot that only answers math questions ... Enter 'quit' to exit"
     math_chatbot.converse()
 
 def demo():
-    #print dictionary.keys()
     math_chat()
 
 if __name__ == "__main__":
