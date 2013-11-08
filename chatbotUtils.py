@@ -125,7 +125,7 @@ class Chat(object):
             ''' show alert if number of questions of certain type exceeds pre-defined values '''
             def questionAlert(resp_type):    
                 if count_dict[response_type] > 5:
-                    resp = ("You have been asking questions of "+ response_type.title() + " type over three times! Can you ask me something else such as: ")
+                    resp = ("You have been asking questions of "+ response_type.title() + " type over five times! Can you ask me something else such as: ")
                     for type_name in count_dict.keys():
                         if type_name != response_type:
                             resp += type_name.upper() + ", "
@@ -236,5 +236,4 @@ class Chat(object):
                             text = text.replace(i, j)
                         return text
                     input = replace_all(input, number_dict)
-                    print(input)
                     print(self.respond(input))
