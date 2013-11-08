@@ -47,6 +47,19 @@ question_dict = {
     "arithmetic" : []
 }
 
+number_dict = {
+    "one" : "1",
+    "two" : "2",
+    "three" : "3",
+    "four" : "4",
+    "five" : "5",
+    "six" : "6",
+    "seven" : "7",
+    "eight" : "8",
+    "nine" : "9",
+    "ten" : "10",
+}
+
 class Chat(object):
     def __init__(self, pairs, reflections={}):
         """
@@ -212,5 +225,16 @@ class Chat(object):
 		    if total_count > 10:
 			print("You've asked more than 10 questions. I'm tired. Our session has ended today.")
 			input = quit
+			print("===== Summary of Our Q&A Session =====")
+			print("| TYPE | QUESTIONS |")
+			print("--------------------")
+			for key in question_dict.keys():
+                            print("|", key.title(), "|", question_dict[key], "|")
 			break
+                    def replace_all(text, dic):
+                        for i, j in dic.iteritems():
+                            text = text.replace(i, j)
+                        return text
+                    input = replace_all(input, number_dict)
+                    print(input)
                     print(self.respond(input))

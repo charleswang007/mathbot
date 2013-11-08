@@ -146,7 +146,7 @@ arithmetic_pairs = (
     ),
 )
 
-# basic arithmetic (starting with verbal)
+# basic arithmetic (starting with verbal, e.g. what is 1 plus 2?)
 arithmetic_pairs_1 = (
     (
         r"(.*)\s(\d+\.*\d*)\s*plus\s*(\d+\.*\d*)", # addition(plus)
@@ -238,8 +238,7 @@ extra_pairs = (
             "(Looking sad) I want to talk about math...",
             "Please don't count on me answer this kind of question"
         ),
-        "extra",
-        ""
+        "extra",        ""
     ),
 )
 
