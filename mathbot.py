@@ -289,8 +289,82 @@ statistics_pairs = (
         "statistics",
         "sd"
     ),
+)
 
+# reverse Q&A
+QnA_pairs = (
 
+    (
+        r"(q1-sol\s*=\s*)(\d+)",
+        (
+            "The answer of q1: 2 + 9 is 11"
+        ),
+        "qna",
+        "q1-answer"
+    ),
+    
+    (
+        r"(q2-sol\s*=\s*)(\d+)",
+        (
+            "The answer of q2: 15 + 19 is 34"
+        ),
+        "qna",
+        "q2-answer"
+    ),
+    
+    (
+        r"(q3-sol\s*=\s*)(\d+)",
+        (
+            "The answer of q3: 42 + 28 is 70"
+        ),
+        "qna",
+        "q3-answer"
+    ),
+    
+    (
+        r"(q4-sol\s*=\s*)(\d+)",
+        (
+            "The answer of q4: 98 + 67 is 165"
+        ),
+        "qna",
+        "q4-answer"
+    ),
+    
+    (
+        r"(q5-sol\s*=\s*)(\d+)",
+        (
+            "The answer of q5: 9 - 2 is 7"
+        ),
+        "qna",
+        "q5-answer"
+    ),
+    
+    (
+        r"(q6-sol\s*=\s*)(\d+)",
+        (
+            "The answer of q6: 19 - 15 is 4"
+        ),
+        "qna",
+        "q6-answer"
+    ),
+    
+    (
+        r"(q7-sol\s*=\s*)(\d+)",
+        (
+            "The answer of q7: 42 - 28 is 14"
+        ),
+        "qna",
+        "q7-answer"
+    ),
+    
+    (
+        r"(q8-sol\s*=\s*)(\d+)",
+        (
+            "The answer of q8: 98 - 67 is 31"
+        ),
+        "qna",
+        "q8-answer"
+    ),
 )
 
 # anything else
@@ -309,6 +383,7 @@ pairs = intro_pairs + definition_pairs
 pairs = pairs + arithmetic_pairs
 pairs = pairs + arithmetic_pairs_1
 pairs = pairs + statistics_pairs
+pairs = pairs + QnA_pairs
 pairs = pairs + extra_pairs
 #print pairs
 

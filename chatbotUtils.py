@@ -10,12 +10,14 @@
 from __future__ import print_function
 from __future__ import division
 from collections import defaultdict
+from random import randint
 from math import *
 
 import string
 import re
 import random
 #from nltk import compat
+blWrong = False
 reflections = {
   "i am"       : "you are",
   "i was"      : "you were",
@@ -40,7 +42,8 @@ count_dict = {
     "extra" : 0,
     "definition" : 0,
     "arithmetic" : 0,
-    "statistics" : 0
+    "statistics" : 0,
+    "qna" : 0
 }
 
 question_dict = {
@@ -48,9 +51,10 @@ question_dict = {
     "extra" : [],
     "definition" : [],
     "arithmetic" : [],
-    "statistics" : []
+    "statistics" : [],
+    "qna" : []
 }
-
+count_repeat_dict = defaultdict(int)
 number_dict = {
     "one" : "1",
     "two" : "2",
@@ -128,16 +132,36 @@ class Chat(object):
 
             ''' show alert if number of questions of certain type exceeds pre-defined values '''
             def questionAlert(resp_type):    
-                if count_dict[response_type] > 5:
+                if count_dict[response_type] > 5 and response_type!="qna":
                     resp = ("You have been asking questions of "+ response_type.title() + " type over five times! Can you ask me something else such as: ")
                     for type_name in count_dict.keys():
-                        if type_name != response_type:
+                        if type_name != response_type and response_type!="qna":
                             resp += type_name.upper() + ", "
                     resp = resp[0:-2] + " ???"
                 else:
                     resp = None
                 return resp
+            
+            def reverseQnA(sub_type):
+                if sub_type == "q1-question":
+                    resp = "What is the addition of 2 and 9? Answer the question in this format --> q1-sol = your_answer"
+                elif sub_type == "q2-question":
+                    resp = "What is the addition of 15 and 19? Answer the question in this format --> q2-sol = your_answer"
+                elif sub_type == "q3-question":
+                    resp = "What is 42 plus 28? Answer the question in this format --> q3-sol = your_answer"
+                elif sub_type == "q4-question":
+                    resp = "What is  98 plus 67? Answer the question in this format --> q4-sol = your_answer"
+                elif sub_type == "q5-question":
+                    resp = "What is 2 subtracted from 9? Answer the question in this format --> q5-sol = your_answer"
+                elif sub_type == "q6-question":
+                    resp = "What is 15 subtracted from 19? Answer the question in this format --> q6-sol = your_answer"
+                elif sub_type == "q7-question":
+                    resp = "What is 42 minus 28? Answer the question in this format --> q7-sol = your_answer"
+                elif sub_type == "q8-question":
+                    resp = "What is 98 minus 67? Answer the question in this format --> q8-sol = your_answer"    
                 
+                return resp
+            
             for (pattern, response, response_type, sub_type) in self._pairs:
                 match = pattern.match(str)
                 resp = ""
@@ -152,23 +176,30 @@ class Chat(object):
                         # fix munged punctuation at the end
                         if resp[-2:] == '?.': resp = resp[:-2] + '.'
                         if resp[-2:] == '??': resp = resp[:-2] + '?'
-			
-                    	count_dict[response_type] += 1
-			question_dict[response_type].append(match.group(0))
-			
+                        count_dict[response_type] += 1
+                        question_dict[response_type].append(match.group(0))
+                    
                     elif response_type == "arithmetic":
                         count_dict[response_type] += 1
                         question_dict[response_type].append(match.group(0))
                         strEval = 0
- 
+                        
                         if sub_type == "addition":
                             strEval = float(match.group(1)) + float(match.group(2))
+                            lenstrA = len(match.group(1))
+                            lenstrB = len(match.group(2))
+                            if(lenstrA <=3 and lenstrB <=3):
+                                count_repeat_dict['add'] += 1
                             resp = ("The sum of " + match.group(1) + " and " + match.group(2) + " is: ") + repr(strEval)
 
                         elif sub_type == "subtraction":
                             strEval = float(match.group(1)) - float(match.group(2))
+                            lenstrA = len(match.group(1))
+                            lenstrB = len(match.group(2))
+                            if(lenstrA <=3 and lenstrB <=3):
+                                count_repeat_dict['sub'] += 1
                             resp = ("The subtraction of " + match.group(1) + " from " + match.group(2) + " is: ") + repr(strEval)
-                        
+
                         elif sub_type == "multiplication":
                             strEval = float(match.group(1)) * float(match.group(2))
                             resp = ("The multiplication of " + match.group(1) + " and " + match.group(2) + " is: ") + repr(strEval)
@@ -183,10 +214,18 @@ class Chat(object):
 
                         elif sub_type == "addition-1":
                             strEval = float(match.group(2)) + float(match.group(3))
+                            lenstrA = len(match.group(2))
+                            lenstrB = len(match.group(3))
+                            if(lenstrA <=3 and lenstrB <=3):
+                                count_repeat_dict['add'] += 1
                             resp = ("The sum of " + match.group(2) + " and " + match.group(3) + " is: ") + repr(strEval)
 
                         elif sub_type == "subtraction-1":
                             strEval = float(match.group(2)) - float(match.group(3))
+                            lenstrA = len(match.group(2))
+                            lenstrB = len(match.group(3))
+                            if(lenstrA <=3 and lenstrB <=3):
+                                count_repeat_dict['sub'] += 1
                             resp = ("The subtraction of " + match.group(2) + " from " + match.group(3) + " is: ") + repr(strEval)
                         
                         elif sub_type == "multiplication-1":
@@ -229,7 +268,7 @@ class Chat(object):
                             lsMedian.sort()
                             lenMedian = len(lsMedian)
                             if(lenMedian % 2 == 0):
-                                index_1 = lenMedian // 2
+                                index_1 = lenMedian // 2 - 1
                                 index_2 = index_1 + 1
                                 flMedian = (lsMedian[index_1] + lsMedian[index_2]) / 2
                             else:
@@ -262,8 +301,85 @@ class Chat(object):
                                 flsumSd += (item - flMean) ** 2
                             flSd = (1 / (len(lsSd)-1) * flsumSd) ** (1/2)
                             resp = ("The standard deviation (sd) of " + match.group(2) + " is: " + repr(flSd))
+                    
+                    elif response_type == "qna":
+                        count_dict[response_type] += 1
+                        question_dict[response_type].append(match.group(0))
+                        strAns = match.group(2)
                         
-                    if questionAlert(response_type) != None:
+                        if sub_type == "q1-answer":
+                            if(strAns == "11"):
+                                resp = ("Great! Your answer is correct! Let's continue ~")
+                            else:
+                                resp = ("Your answer is incorrect. Please do more math before asking me, bye ~")
+                                count_dict[response_type] += 999999
+                        
+                        elif sub_type == "q2-answer":
+                            if(strAns == "34"):
+                                resp = ("Great! Your answer is correct! Let's continue ~")
+                            else:
+                                resp = ("Your answer is incorrect. Please do more math before asking me, bye ~")
+                                count_dict[response_type] += 999999
+                        
+                        elif sub_type == "q3-answer":
+                            if(strAns == "70"):
+                                resp = ("Great! Your answer is correct! Let's continue ~")
+                            else:
+                                resp = ("Your answer is incorrect. Please do more math before asking me, bye ~")
+                                count_dict[response_type] += 999999
+                                            
+                        elif sub_type == "q4-answer":
+                            if(strAns == "165"):
+                                resp = ("Great! Your answer is correct! Let's continue ~")
+                            else:
+                                resp = ("Your answer is incorrect. Please do more math before asking me, bye ~")
+                                count_dict[response_type] += 999999
+                        
+                        elif sub_type == "q5-answer":
+                            if(strAns == "7"):
+                                resp = ("Great! Your answer is correct! Let's continue ~")
+                            else:
+                                resp = ("Your answer is incorrect. Please do more math before asking me, bye ~")
+                                count_dict[response_type] += 999999
+                        
+                        elif sub_type == "q6-answer":
+                            if(strAns == "4"):
+                                resp = ("Great! Your answer is correct! Let's continue ~")
+                            else:
+                                resp = ("Your answer is incorrect. Please do more math before asking me, bye ~")
+                                count_dict[response_type] += 999999
+                        
+                        elif sub_type == "q7-answer":
+                            if(strAns == "14"):
+                                resp = ("Great! Your answer is correct! Let's continue ~")
+                            else:
+                                resp = ("Your answer is incorrect. Please do more math before asking me, bye ~")
+                                count_dict[response_type] += 999999
+                        
+                        elif sub_type == "q8-answer":
+                            if(strAns == "31"):
+                                resp = ("Great! Your answer is correct! Let's continue ~")
+                            else:
+                                resp = ("Your answer is incorrect. Please do more math before asking me, bye ~")
+                                count_dict[response_type] += 999999
+                    
+                    if count_repeat_dict['add'] >= 3:
+                        ques_list = ["q1-question", "q2-question", "q3-question", "q4-question"]
+                        index = randint(0,3)
+                        print ("You have asked me too many simple questions on addition! You should brush up your skills before asking me!")
+                        print ("Now, I am going to check if you understand basic addition!")
+                        count_repeat_dict['add'] = 0
+                        resp = reverseQnA(ques_list[index])
+                    
+                    elif count_repeat_dict['sub'] >= 3:
+                        ques_list = ["q5-question", "q6-question", "q7-question", "q8-question"]
+                        index = randint(0,3)
+                        print ("You have asked me too many simple questions on subtraction! You should brush up your skills before asking me!")
+                        print ("Now, I am going to check if you understand basic subtraction!")
+                        count_repeat_dict['sub'] = 0
+                        resp = reverseQnA(ques_list[index])
+                        
+                    elif questionAlert(response_type) != None:
                         resp = questionAlert(response_type)
 
                     ''' for debug purpose '''
@@ -276,29 +392,40 @@ class Chat(object):
 
     # Hold a conversation with a chatbot
     def converse(self, quit="quit"):
-            input = ""
-            while input != quit:
-                input = quit
-                try: input = raw_input(">")
-                except EOFError:
-                    print(input)
-                if input:
-                    while input[-1] in "!.": input = input[:-1]
-		    total_count = 1
-		    for key in count_dict.keys():
-                        total_count = total_count + count_dict[key]
-		    if total_count > 10:
-			print("You've asked more than 10 questions. I'm tired. Our session has ended today.")
-			input = quit
-			print("===== Summary of Our Q&A Session =====")
-			print("| TYPE | QUESTIONS |")
-			print("--------------------")
-			for key in question_dict.keys():
-                            print("|", key.title(), "|", question_dict[key], "|")
-			break
-                    def replace_all(text, dic):
-                        for i, j in dic.iteritems():
-                            text = text.replace(i, j)
-                        return text
-                    input = replace_all(input, number_dict)
-                    print(self.respond(input))
+        input = ""
+        while input != quit:
+            input = quit
+            try: input = raw_input(">")
+            except EOFError:
+                print(input)
+            if input:
+                while input[-1] in "!.": input = input[:-1]
+                
+                total_count = 1
+                for key in count_dict.keys():
+                    total_count = total_count + count_dict[key]
+                if(total_count>=999999):
+                    print("Sorry, I can't answer you more questions now.")
+                    print("Practise more math and I hope you do better next time! Good luck!")
+                    input = quit
+                    print("===== Summary of Our Q&A Session =====")
+                    print("| TYPE | QUESTIONS |")
+                    print("--------------------")
+                    for key in question_dict.keys():
+                        print("|", key.title(), "|", question_dict[key], "|")
+                    break
+                if total_count > 10:
+                    print("You've asked more than 10 questions. I'm tired. Our session has ended today.")
+                    input = quit
+                    print("===== Summary of Our Q&A Session =====")
+                    print("| TYPE | QUESTIONS |")
+                    print("--------------------")
+                    for key in question_dict.keys():
+                        print("|", key.title(), "|", question_dict[key], "|")
+                    break
+                def replace_all(text, dic):
+                    for i, j in dic.iteritems():
+                        text = text.replace(i, j)
+                    return text
+                input = replace_all(input, number_dict)
+                print(self.respond(input))

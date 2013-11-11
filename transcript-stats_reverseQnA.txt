@@ -1,0 +1,109 @@
+############################################################################
+# Session 1: stats                                                         #
+# -------------------------------------------------------------------------#
+# The basic stats definition of mean, mode, median and standard deviation  #
+# are implemented. Also, the mathbot can compute mean, mode, median and    #
+# standard deviation for a set of numbers entered by the user.             #
+############################################################################
+I'm a nerdy mathbot that only answers math questions ... Enter 'quit' to exit
+>hello mathbot, I want to ask you something about stats today
+Math makes me the sexist chatbot in the world!
+>what is mean
+The mean/average is obtained by dividing the sum of observed values by the number of observations.
+>can you tell me the mean of 1.1 2 3.1 3 4
+The mean/average of 1.1 2 3.1 3 4 is: 2.6399999999999997
+>what is median
+The median is the middle value of a set of data containing an odd number of values, or the average of the two middle values for even numbers of data.
+>can you calculate the median of 4 1 2 3
+The median of 4 1 2 3 is: 2.5
+>what is mode
+The mode of a set of data is the value that occurs most frequently.
+>can you tell me what is the mode of 1,2,3,1,1,9,9.9,9.9,9.9
+The mode of 1,2,3,1,1,9,9.9,9.9,9.9 is: 1
+>what is sd
+(Looking sad) I want to talk about math...
+>what is standard deviation
+The standard deviation gives an idea of how close the entire set of data is to the average value.
+>what is the sd of 10,20,30,40
+The standard deviation (sd) of 10,20,30,40 is: 12.909944487358056
+>cool
+You've asked more than 10 questions. I'm tired. Our session has ended today.
+===== Summary of Our Q&A Session =====
+| TYPE | QUESTIONS |
+--------------------
+| Definition | ['what is mean', 'what is median', 'what is mode', 'what is standard deviation'] |
+| Statistics | ['can you tell me the mean of 1.1 2 3.1 3 4', 'can you calculate the median of 4 1 2 3', 'can you tell me what is the mode of 1,2,3,1,1,9,9.9,9.9,9.9', 'what is the sd of 10,20,30,40'] |
+| Extra | ['what is sd'] |
+| Intro | ['hello math'] |
+| Qna | [] |
+| Arithmetic | [] |
+
+############################################################################
+# Session 2: reverse Q/A - correct response                                #
+# -------------------------------------------------------------------------#
+# If ask more than 3 times on either addition/subtraction alone for length #
+# of two input numbers are <=3, then will start the reverse Q/A session.   #
+# If answer correctly, the user can continue asking questions.             #
+############################################################################
+I'm a nerdy mathbot that only answers math questions ... Enter 'quit' to exit
+>hellp mathbot
+Math makes me the sexist chatbot in the world!
+>i want to do some simple math
+Please challenge me with any math questions. I'm hungry!
+>what is one plus two
+The sum of 1 and 2 is: 3.0
+>what about 2 + 3
+The sum of 2 and 3 is: 5.0
+>what is 1000+3   
+The sum of 1000 and 3 is: 1003.0
+>what is 1 + 2 again?
+You have asked me too many simple questions on addition! You should brush up your skills before asking me!
+Now, I am going to check if you understand basic addition!
+What is  98 plus 67? Answer the question in this format --> q4-sol = your_answer
+>q4-sol = 165
+Great! Your answer is correct! Let's continue ~
+>what's 5-2
+The subtraction of 5 from 2 is: 3.0
+>what's 4-2
+You have been asking questions of Arithmetic type over five times! Can you ask me something else such as: DEFINITION, STATISTICS, EXTRA, INTRO, QNA ???
+>quit
+Good Bye!
+
+############################################################################
+# Session 3: reverse Q/A - wrong response                                  #
+# -------------------------------------------------------------------------#
+# If ask more than 3 times on either addition/subtraction alone for length #
+# of two input numbers are <=3, then will start the reverse Q/A session.   #
+# If answer incorrectly, the user can no longer ask more questions.        #
+# The session will be ended with summary statistics.                       #
+############################################################################
+I'm a nerdy mathbot that only answers math questions ... Enter 'quit' to exit
+>hey there you mathbot
+Did you just say Math? It is my favorite subject!
+>i can't do simple math i need your help
+Did you just say Math? It is my favorite subject!
+>ok
+Please don't count on me answer this kind of question
+>what is 2-3
+The subtraction of 2 from 3 is: -1.0
+>what is 1-2
+The subtraction of 1 from 2 is: -1.0
+>oh what is 2-3 again?
+You have asked me too many simple questions on subtraction! You should brush up your skills before asking me!
+Now, I am going to check if you understand basic subtraction!
+What is 42 minus 28? Answer the question in this format --> q7-sol = your_answer
+>q7-sol=2
+Your answer is incorrect. Please do more math before asking me, bye ~
+>can you tell me what is 3-2?
+Sorry, I can't answer you more questions now.
+Practise more math and I hope you do better next time! Good luck!
+===== Summary of Our Q&A Session =====
+| TYPE | QUESTIONS |
+--------------------
+| Definition | [] |
+| Statistics | [] |
+| Extra | ['ok'] |
+| Intro | ['hey there you math', "i can't do simple math"] |
+| Qna | ['q7-sol=2'] |
+| Arithmetic | ['what is 2-3', 'what is 1-2', 'oh what is 2-3'] |
+
