@@ -33,6 +33,10 @@ dictionary = {'equation': 'An equation says that two things are equal.',
               'expression': 'An Expression is a group of terms (the terms are separated by + or - signs)',
               'exponent': 'The exponent (such as the 2 in x^2) says how many times to use the value in a multiplication.',
               'polynomial': 'Example of a Polynomial: 3x^2 + x - 2',
+              'mean': 'The mean/average is obtained by dividing the sum of observed values by the number of observations.',
+              'median': 'The median is the middle value of a set of data containing an odd number of values, or the average of the two middle values for even numbers of data.',
+              'mode': 'The mode of a set of data is the value that occurs most frequently.',
+              'standard deviation': 'The standard deviation gives an idea of how close the entire set of data is to the average value.'
               }
 definition_pairs = []
 for term in dictionary.keys():
@@ -230,6 +234,65 @@ arithmetic_pairs_1 = (
     ),
 )
 
+# basic statistics
+statistics_pairs = (
+    (
+        r"(.*)\s*mean\sof\s([\d.,\s]+)", # mean
+        (
+            "The mean of , result is ...",
+        ) ,
+        "statistics",
+        "mean"
+    ),
+    
+    (
+        r"(.*)\s*median\sof\s([\d.,\s]+)", # median
+        (
+            "The median of , result is ...",
+        ) ,
+        "statistics",
+        "median"
+    ),
+    
+    (
+        r"(.*)\s*average\sof\s([\d.,\s]+)", # average
+        (
+            "The average of , result is ...",
+        ) ,
+        "statistics",
+        "average"
+    ),
+    
+    (
+        r"(.*)\s*mode\sof\s([\d.,\s]+)", # mode
+        (
+            "The mede of , result is ...",
+        ) ,
+        "statistics",
+        "mode"
+    ),
+    
+    (
+        r"(.*)\s*sd\sof\s([\d.,\s]+)", # sd
+        (
+            "The sd of , result is ...",
+        ) ,
+        "statistics",
+        "sd"
+    ),
+    
+    (
+        r"(.*)\s*standard\sdeviation\sof\s([\d.,\s]+)", # standard deviation
+        (
+            "The standard deviation of , result is ...",
+        ) ,
+        "statistics",
+        "sd"
+    ),
+
+
+)
+
 # anything else
 extra_pairs = (
     (
@@ -245,6 +308,7 @@ extra_pairs = (
 pairs = intro_pairs + definition_pairs
 pairs = pairs + arithmetic_pairs
 pairs = pairs + arithmetic_pairs_1
+pairs = pairs + statistics_pairs
 pairs = pairs + extra_pairs
 #print pairs
 

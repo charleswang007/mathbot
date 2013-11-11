@@ -9,6 +9,8 @@
 # Jeff Epler <jepler@inetnebr.com> and Jez Higgins <jez@jezuk.co.uk>.
 from __future__ import print_function
 from __future__ import division
+from collections import defaultdict
+from math import *
 
 import string
 import re
@@ -37,14 +39,16 @@ count_dict = {
     "intro" : 0,
     "extra" : 0,
     "definition" : 0,
-    "arithmetic" : 0
+    "arithmetic" : 0,
+    "statistics" : 0
 }
 
 question_dict = {
     "intro" : [],
     "extra" : [],
     "definition" : [],
-    "arithmetic" : []
+    "arithmetic" : [],
+    "statistics" : []
 }
 
 number_dict = {
@@ -196,7 +200,68 @@ class Chat(object):
                         elif sub_type == "exponentiation-1":
                             strEval = float(match.group(2)) ** float(match.group(3))
                             resp = (match.group(2) + " to the power of "+  match.group(3) + " is: ") + repr(strEval)
+                    
+                    elif response_type == "statistics":
+                        count_dict[response_type] += 1
+                        question_dict[response_type].append(match.group(0))
                         
+                        if sub_type == "mean" or sub_type == "average":
+                            strMean = match.group(2)
+                            strMean = strMean.replace(",", " ")
+                            splitMean = strMean.split(" ")
+                            lsMean = []
+                            for item in splitMean:
+                                if(item != ""):
+                                    flNum = float(item)
+                                    lsMean += [flNum]
+                            flMean = sum(lsMean) / len(lsMean)
+                            resp = ("The mean/average of " + match.group(2) + " is: " + repr(flMean))
+                        
+                        if sub_type == "median":
+                            strMedian = match.group(2)
+                            strMedian = strMedian.replace(",", " ")
+                            splitMedian = strMedian.split(" ")
+                            lsMedian = []
+                            for item in splitMedian:
+                                if(item !=""):
+                                    flNum = float(item)
+                                    lsMedian += [flNum]
+                            lsMedian.sort()
+                            lenMedian = len(lsMedian)
+                            if(lenMedian % 2 == 0):
+                                index_1 = lenMedian // 2
+                                index_2 = index_1 + 1
+                                flMedian = (lsMedian[index_1] + lsMedian[index_2]) / 2
+                            else:
+                                index = lenMedian // 2
+                                flMedian = lsMedian[index]
+                            resp = ("The median of " + match.group(2) + " is: " + repr(flMedian))
+                        
+                        if sub_type == "mode":
+                            strMode = match.group(2)
+                            strMode = strMode.replace(",", " ")
+                            splitMode = strMode.split(" ")
+                            dictMode = defaultdict(int)
+                            for item in splitMode:
+                                dictMode[item] += 1
+                            strMaxMode = max(dictMode.iterkeys(), key=(lambda key: dictMode[key]))
+                            resp = ("The mode of " + match.group(2) + " is: " + strMaxMode)
+                        
+                        if sub_type == "sd":
+                            strSd = match.group(2)
+                            strSd = strSd.replace(",", " ")
+                            splitSd = strSd.split(" ")
+                            lsSd = []
+                            for item in splitSd:
+                                if(item != ""):
+                                    flNum = float(item)
+                                    lsSd += [flNum]
+                            flMean = sum(lsSd) / len(lsSd)
+                            flsumSd = 0
+                            for item in lsSd:
+                                flsumSd += (item - flMean) ** 2
+                            flSd = (1 / (len(lsSd)-1) * flsumSd) ** (1/2)
+                            resp = ("The standard deviation (sd) of " + match.group(2) + " is: " + repr(flSd))
                         
                     if questionAlert(response_type) != None:
                         resp = questionAlert(response_type)
