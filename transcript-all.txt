@@ -107,3 +107,83 @@ Practise more math and I hope you do better next time! Good luck!
 | Qna | ['q7-sol=2'] |
 | Arithmetic | ['what is 2-3', 'what is 1-2', 'oh what is 2-3'] |
 
+############################################################################
+# Session 4: user experience                                               #
+############################################################################
+I'm a nerdy mathbot that only answers math questions ... Enter 'quit' to exit
+>hello matbot
+(Looking sad) I want to talk about math...
+>what are you doing
+Please don't count on me answer this kind of question
+>lets do some math
+Math makes me the sexist chatbot in the world!
+>what is 1/2
+The division of 1 by 2 is: 0.5
+>what is 2**3
+2 to the power of 3 is: 8.0
+>what about 300+2
+The sum of 300 and 2 is: 302.0
+>do you know what is statistics
+(Looking sad) I want to talk about math...
+>what is mean
+The mean/average is obtained by dividing the sum of observed values by the number of observations.
+>can you tell me what is the mean of 1, 2, 3
+The mean/average of 1, 2, 3 is: 2.0
+>nice
+Please don't count on me answer this kind of question
+>it's not question
+You've asked more than 10 questions. I'm tired. Our session has ended today.
+===== Summary of Our Q&A Session =====
+| TYPE | QUESTIONS |
+--------------------
+| Definition | ['what is mean'] |
+| Statistics | ['can you tell me what is the mean of 1, 2, 3'] |
+| Extra | ['hello matbot', 'what are you doing', 'do you know what is statistics', 'nice'] |
+| Intro | ['lets do some math'] |
+| Qna | [] |
+| Arithmetic | ['what is 1/2', 'what is 2**3', 'what about 300+2'] |
+
+############################################################################
+# Session 5: user experience                                               #
+############################################################################
+I'm a nerdy mathbot that only answers math questions ... Enter 'quit' to exit
+>hey
+Please don't count on me answer this kind of question
+>ok
+Please don't count on me answer this kind of question
+>what do you know
+Please don't count on me answer this kind of question
+>555555+2222222
+The sum of 555555 and 2222222 is: 2777777.0
+>2+3
+The sum of 2 and 3 is: 5.0
+>4-2
+The subtraction of 4 from 2 is: 2.0
+>9/3
+The division of 9 by 3 is: 3.0
+>3/9
+The division of 3 by 9 is: 0.3333333333333333
+>what else do you knwo
+(Looking sad) I want to talk about math...
+>3.1416 * 99999999
+You have been asking questions of Arithmetic type over five times! Can you ask me something else such as: DEFINITION, STATISTICS, EXTRA, INTRO, QNA ???
+>what is definition of geometry
+You've asked more than 10 questions. I'm tired. Our session has ended today.
+===== Summary of Our Q&A Session =====
+| TYPE | QUESTIONS |
+--------------------
+| Definition | [] |
+| Statistics | [] |
+| Extra | ['hey', 'ok', 'what do you know', 'what else do you knwo'] |
+| Intro | [] |
+| Qna | [] |
+| Arithmetic | ['555555+2222222', '2+3', '4-2', '9/3', '3/9', '3.1416 * 99999999'] |
+
+
+
+
+
+
+
+
+

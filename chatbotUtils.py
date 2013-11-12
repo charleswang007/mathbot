@@ -16,8 +16,7 @@ from math import *
 import string
 import re
 import random
-#from nltk import compat
-blWrong = False
+
 reflections = {
   "i am"       : "you are",
   "i was"      : "you were",
@@ -127,9 +126,7 @@ class Chat(object):
             :param str: The string to be mapped
             :rtype: str
             """
-            # check each pattern
-            # add response_type
-
+            
             ''' show alert if number of questions of certain type exceeds pre-defined values '''
             def questionAlert(resp_type):    
                 if count_dict[response_type] > 5 and response_type!="qna":
@@ -142,6 +139,7 @@ class Chat(object):
                     resp = None
                 return resp
             
+            ''' questions asked in reverse Q/A session base on sub_type'''
             def reverseQnA(sub_type):
                 if sub_type == "q1-question":
                     resp = "What is the addition of 2 and 9? Answer the question in this format --> q1-sol = your_answer"
@@ -179,6 +177,7 @@ class Chat(object):
                         count_dict[response_type] += 1
                         question_dict[response_type].append(match.group(0))
                     
+                    # basic arithmetic computation: addition, subtraction, multiplication, division and exponentiation
                     elif response_type == "arithmetic":
                         count_dict[response_type] += 1
                         question_dict[response_type].append(match.group(0))
@@ -240,10 +239,12 @@ class Chat(object):
                             strEval = float(match.group(2)) ** float(match.group(3))
                             resp = (match.group(2) + " to the power of "+  match.group(3) + " is: ") + repr(strEval)
                     
+                    # statistics related computations: mean, mode, median, standard deviation
                     elif response_type == "statistics":
                         count_dict[response_type] += 1
                         question_dict[response_type].append(match.group(0))
                         
+                        # mean
                         if sub_type == "mean" or sub_type == "average":
                             strMean = match.group(2)
                             strMean = strMean.replace(",", " ")
@@ -256,6 +257,7 @@ class Chat(object):
                             flMean = sum(lsMean) / len(lsMean)
                             resp = ("The mean/average of " + match.group(2) + " is: " + repr(flMean))
                         
+                        # median
                         if sub_type == "median":
                             strMedian = match.group(2)
                             strMedian = strMedian.replace(",", " ")
@@ -276,6 +278,7 @@ class Chat(object):
                                 flMedian = lsMedian[index]
                             resp = ("The median of " + match.group(2) + " is: " + repr(flMedian))
                         
+                        # mode
                         if sub_type == "mode":
                             strMode = match.group(2)
                             strMode = strMode.replace(",", " ")
@@ -286,6 +289,7 @@ class Chat(object):
                             strMaxMode = max(dictMode.iterkeys(), key=(lambda key: dictMode[key]))
                             resp = ("The mode of " + match.group(2) + " is: " + strMaxMode)
                         
+                        # standard deviation
                         if sub_type == "sd":
                             strSd = match.group(2)
                             strSd = strSd.replace(",", " ")
@@ -302,6 +306,8 @@ class Chat(object):
                             flSd = (1 / (len(lsSd)-1) * flsumSd) ** (1/2)
                             resp = ("The standard deviation (sd) of " + match.group(2) + " is: " + repr(flSd))
                     
+                    # Q/A session: check the answer for each response from the user. Continue if response is correct.
+                    # count_dict will be increased 999999 to initate end of session in converse()
                     elif response_type == "qna":
                         count_dict[response_type] += 1
                         question_dict[response_type].append(match.group(0))
@@ -363,6 +369,8 @@ class Chat(object):
                                 resp = ("Your answer is incorrect. Please do more math before asking me, bye ~")
                                 count_dict[response_type] += 999999
                     
+                    # condition that checks the number of times the user has asked for simple addition questions.
+                    # reverse Q/A session will be initiated if this condition matches.
                     if count_repeat_dict['add'] >= 3:
                         ques_list = ["q1-question", "q2-question", "q3-question", "q4-question"]
                         index = randint(0,3)
@@ -371,6 +379,8 @@ class Chat(object):
                         count_repeat_dict['add'] = 0
                         resp = reverseQnA(ques_list[index])
                     
+                    # condition that checks the number of times the user has asked for simple subtraction questions.
+                    # reverse Q/A session will be initiated if this condition matches.
                     elif count_repeat_dict['sub'] >= 3:
                         ques_list = ["q5-question", "q6-question", "q7-question", "q8-question"]
                         index = randint(0,3)
@@ -378,7 +388,9 @@ class Chat(object):
                         print ("Now, I am going to check if you understand basic subtraction!")
                         count_repeat_dict['sub'] = 0
                         resp = reverseQnA(ques_list[index])
-                        
+                    
+                    # if questionAler() returns not None, the message for asking for the same topic for over five times
+                    # is returned.
                     elif questionAlert(response_type) != None:
                         resp = questionAlert(response_type)
 
