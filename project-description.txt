@@ -1,0 +1,44 @@
+@Authors: Charles Wang, Alice Man
+
+######################################
+# project description
+######################################
+
+MathBot is a chat-bot in development. We are training MathBot to not only answer simple number problems like addition, subtraction, multiplication, and division, but can solve questions related to mathematical definitions, large number algebra operations, or statistics. Our code was modified from dog_chat.py by Strout et al. We also modified the NLTK Chat class.
+
+######################################
+# suggestion we chose: (3)
+######################################
+
+We came up with 6 major response types and several sub-types underneath them. We were thus able to record and track the discourse entities across the conversation. We also leveraged the versatility of NLP and regular expression to add intelligence when extracting keywords in questions. For example, "2 + 4", "2 plus 4", or "two plus 4" all have the same meaning, in addition to expanding the variable substitution. Moreover, we defined the mathbot's arrogant and impatient personality. Our mathbot would only answer 10 questions during each session and is tired of giving response to repetitive "easy" questions that we pre-defined. 
+
+######################################
+# motivation behind the code
+######################################
+
+We did an online research before starting to work on the MathBot idea. Many of the existing chatbots do not answer sophisticated mathmetical questions correctly or satisfactory. These chatbots include A.L.I.C.E. (Artificial Linguistic Internet Computer Entity) and Jabberwacky. ALICE is a good natural language processing chatterbot but failed to answer simple math opearation question such as "what is 2 plus 4?". On the other hand, although Jabberwacky stimulates an entertaining conversation with humans, it was not willing to provide answers to mathematical questions at all. Thus, we want to create our own mathbot that highly utilizes what we learned from NLP and artificial intelligence through natural huamn interaction. Ultimately, we want our mathbot not only provides users with the correct math answers, but can engage in a fun but educational dialogue with users as well, using sophisticated NLP systems.
+
+######################################
+# what did Alice Man acoomplish?
+######################################
+
+1. Built question-response pairs related to basic statistics such as mean and standard deviation (see last section for explaination)
+2. Designed and implemented the reverse-QA mechanism
+3. Assigned difficulty scores to arithmetic questions
+4. Conducted user experience by inviting another two people to interact with the MathBot
+
+######################################
+# what did Charles Wang accomplish?
+######################################
+
+1. Adopted the design of dog_chat and laid out the overall architecture of the code
+2. Background research on mathbots
+3. Created the terminology dictionaries
+4. Built question-response pairs related to introduction, terminologies, and arithmetics
+5. Drafted the first few regular expression (RE) pattern for keyword extractions
+
+######################################
+# Appendix: Reverse Q/A Session
+######################################
+
+Initiated when the user has asked either too simple addition or subtraction questions. Simple questions are defined base on the length of the two number inputs. If both the input length of the numbers are <=3, it is simple. Mathbot will ask some questions (q1-q4 for addition and q5-q8 for subtraction). If the user answers correctly, the session can be continued. Otherwise, the session will end upon user enters the next question.

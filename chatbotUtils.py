@@ -1,7 +1,8 @@
 # Natural Language Toolkit: Chatbot Utilities
 #
 # Copyright (C) 2001-2013 NLTK Project
-# Authors: Steven Bird <stevenbird1@gmail.com>
+# Orginak Authors: Steven Bird <stevenbird1@gmail.com>
+# Modified by: Charles Wang & Alice Man
 # URL: <http://nltk.org/>
 # For license information, see LICENSE.TXT
 
@@ -416,7 +417,7 @@ class Chat(object):
                 total_count = 1
                 for key in count_dict.keys():
                     total_count = total_count + count_dict[key]
-                if(total_count>=999999):
+                if(total_count >= 999999):
                     print("Sorry, I can't answer you more questions now.")
                     print("Practise more math and I hope you do better next time! Good luck!")
                     input = quit
@@ -439,5 +440,6 @@ class Chat(object):
                     for i, j in dic.iteritems():
                         text = text.replace(i, j)
                     return text
+                # Replace number literals with their digital format
                 input = replace_all(input, number_dict)
                 print(self.respond(input))

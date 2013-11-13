@@ -6,7 +6,7 @@ Created on 11/4/2013
 
 @Description: Code modified from dog_chat.py (Strout et al), the MathBot is not only trained to answer simple
 number problems like addition, subtraction, multiplication, and division, but can solve questions related to
-calculus, geometry, linear algebra or statistic.
+mathematical definitions, large number algebra operations, or statistics.
 
 @Reference ChatBot:
 http://alice.pandorabots.com/
@@ -23,7 +23,7 @@ reflections = {
     }
 
 # definitions
-''' from http://www.mathsisfun.com/algebra/definitions.html '''
+''' mainly from http://www.mathsisfun.com/algebra/definitions.html '''
 dictionary = {'equation': 'An equation says that two things are equal.',
               'variable': 'A Variable is a symbol for a number we don\'t know yet. It is usually a letter like x or y.',
               'constant': 'A number on its own is called a Constant.',
@@ -38,13 +38,15 @@ dictionary = {'equation': 'An equation says that two things are equal.',
               'mode': 'The mode of a set of data is the value that occurs most frequently.',
               'standard deviation': 'The standard deviation gives an idea of how close the entire set of data is to the average value.'
               }
+
+# defintion Q-A pairs
 definition_pairs = []
 for term in dictionary.keys():
     def_tuple = tuple([dictionary[term]])
     definition_pairs.append((r"%s|(.*)what is %s" % (term,term), def_tuple, "definition", ""))
 definition_pairs = tuple(definition_pairs)
 
-# introduction
+# introduction pairs
 intro_pairs = (
     (
         r"math|(.*)what is math",
@@ -375,7 +377,8 @@ extra_pairs = (
             "(Looking sad) I want to talk about math...",
             "Please don't count on me answer this kind of question"
         ),
-        "extra",        ""
+        "extra",
+        ""
     ),
 )
 
@@ -385,7 +388,6 @@ pairs = pairs + arithmetic_pairs_1
 pairs = pairs + statistics_pairs
 pairs = pairs + QnA_pairs
 pairs = pairs + extra_pairs
-#print pairs
 
 math_chatbot = chatbotUtils.Chat(pairs, reflections)
 
